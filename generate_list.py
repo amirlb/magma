@@ -1,6 +1,7 @@
 # Generate a list of equations on magmas
 
 from itertools import permutations
+from sys import stderr
 
 
 EQ_SIZE = 4
@@ -72,7 +73,7 @@ def format_expr(expr, outermost=True):
         return f'({s})'
     return s
 
-print(f'Generated {len(list(generate_all_eqs()))} equations')
+print(f'Generated {len(list(generate_all_eqs()))} equations', file=stderr)
 
 for lhs, rhs in generate_all_eqs():
     print(format_expr(lhs), '=', format_expr(rhs))

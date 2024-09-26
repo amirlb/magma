@@ -1,4 +1,3 @@
-Generated 4694 equations
 x = x
 x = y
 x = x ◦︎ x
