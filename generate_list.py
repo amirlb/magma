@@ -45,16 +45,15 @@ def eq_symmetries_1(lhs, rhs, n_vars):
         yield rename_vars(lhs, renaming), rename_vars(rhs, renaming)
 
 def eq_symmetries(lhs, rhs, n_vars):
-    for renaming in permutations(range(n_vars)):
-        yield rename_vars(lhs, renaming), rename_vars(rhs, renaming)
-        yield rename_vars(rhs, renaming), rename_vars(lhs, renaming)
+    yield from eq_symmetries_1(lhs, rhs, n_vars)
+    yield from eq_symmetries_1(rhs, lhs, n_vars)
 
 def generate_all_eqs():
     all_eqs = set()
-    for lhs_size in range(EQ_SIZE + 1):
-        for lhs_shape in generate_shapes(lhs_size):
-            for rhs_size in range(EQ_SIZE - lhs_size + 1):
-                for rhs_shape in generate_shapes(rhs_size):
+    for size in range(EQ_SIZE + 1):
+        for lhs_size in range(size + 1):
+            for lhs_shape in generate_shapes(lhs_size):
+                for rhs_shape in generate_shapes(size - lhs_size):
                     for lhs, used_vars in exprs_with_shape(lhs_shape, 0):
                         for rhs, all_used_vars in exprs_with_shape(rhs_shape, used_vars):
                             if all(symmetry not in all_eqs for symmetry in eq_symmetries(lhs, rhs, all_used_vars)):
