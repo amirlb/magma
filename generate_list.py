@@ -55,7 +55,6 @@ def generate_all_eqs():
         for lhs_shape in generate_shapes(lhs_size):
             for rhs_size in range(EQ_SIZE - lhs_size + 1):
                 for rhs_shape in generate_shapes(rhs_size):
-                    # n += 1
                     for lhs, used_vars in exprs_with_shape(lhs_shape, 0):
                         for rhs, all_used_vars in exprs_with_shape(rhs_shape, used_vars):
                             if all(symmetry not in all_eqs for symmetry in eq_symmetries(lhs, rhs, all_used_vars)):
